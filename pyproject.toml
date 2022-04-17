@@ -1,0 +1,29 @@
+[tool.black]
+line-length = 79
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "0.0.1"
+version_files = [
+    "trails_app/__init__.py",
+    "pyproject.toml:version"
+]
+tag_format = "v$version"
+changelog_file = "changelog.md"
+update_changelog_on_bump = true
+annotated_tag = true
+bump_message = "release $new_version (previous release $current_version)"

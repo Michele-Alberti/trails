@@ -1,0 +1,8 @@
+name: commitizen
+channels:
+  - defaults
+dependencies:
+  - python=3.10.4
+  - pip=21.2.4
+  - pip:
+      - commitizen==2.24.0

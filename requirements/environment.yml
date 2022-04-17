@@ -1,0 +1,9 @@
+name: trails-app
+channels:
+  - defaults
+dependencies:
+  - python=3.10.4
+  - flask=2.0.3
+  - flask-wtf=0.15.1
+  - flask-login=0.5.0
+  - flask-sqlalchemy=2.5.1
