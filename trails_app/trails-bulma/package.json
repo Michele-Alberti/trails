@@ -1,0 +1,18 @@
+{
+  "name": "trails-bulma",
+  "version": "0.0.1",
+  "description": "customize bulma for trails-app",
+  "main": "sass/trails.scss",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "css-build": "node-sass --omit-source-map-url sass/trails.scss ../static/style.css",
+    "css-watch": "npm run css-build -- --watch",
+    "start": "npm run css-watch"
+  },
+  "author": "Michele Alberti",
+  "license": "MIT",
+  "devDependencies": {
+    "bulma": "^0.9.3",
+    "node-sass": "^7.0.1"
+  }
+}
