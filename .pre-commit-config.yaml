@@ -9,9 +9,10 @@ repos:
     hooks:
       - id: flake8
   - repo: https://github.com/thibaudcolas/pre-commit-stylelint
-    rev: v14.7.1
+    rev: v14.8.0
     hooks:
       - id: stylelint
+        args: [--allow-empty-input]
         additional_dependencies:
           # stylelint itself needs to be here when using additional_dependencies
           - stylelint@14.7.1
