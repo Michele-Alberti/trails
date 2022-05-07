@@ -3,6 +3,7 @@ __version__ = "0.0.1"
 
 from flask import Flask
 from flask_login import LoginManager
+from flask_wtf.csrf import CSRFProtect
 from pathlib import Path
 import os
 
@@ -55,6 +56,10 @@ def create_app(test_config=None):
     def load_user(user_id):
         # user_id is the primary key of users table
         return User.query.get(int(user_id))
+
+    # CSRF protection
+    csrf = CSRFProtect()
+    csrf.init_app(app)
 
     # Auth blueprint registration
     app.register_blueprint(auth_blueprint)
