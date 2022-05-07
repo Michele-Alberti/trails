@@ -1,0 +1,41 @@
+{% for trail in trails %}
+<div class="block">
+  <div class="box px-6">
+    <div class="level">
+      <div class="level-right">
+        <!-- Icon -->
+        <div class="level-item">
+          <div class="container" style="width: 150px">
+            <figure class="image is-5by3">
+              <img
+                src="{{url_for('static', filename='images/mountains/' + trail.icon)}}"
+              />
+            </figure>
+          </div>
+        </div>
+        <!-- Name -->
+        <div class="level-item">
+          <h2 class="title">{{ trail.name }}</h2>
+        </div>
+      </div>
+      <div class="level-right">
+        <!-- Open Button -->
+        <div class="level-item">
+          <a
+            class="button is-link is-outlined"
+            href="{{ url_for('main.trail', trail_id=trail.id) }}"
+            ><strong>OPEN</strong></a
+          >
+        </div>
+        <div class="level-item">
+          <a
+            class="button is-danger is-outlined"
+            href="{{ url_for('main.delete_trail', trail_id=trail.id) }}"
+            ><strong>DELETE</strong></a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
