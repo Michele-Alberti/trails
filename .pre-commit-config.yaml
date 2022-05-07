@@ -17,7 +17,7 @@ repos:
           # stylelint itself needs to be here when using additional_dependencies
           - stylelint@14.7.1
           - stylelint-config-standard@25.0.0
-          - stylelint-config-recommended@7.0.0
+          - stylelint-config-recommended-scss@6.0.0
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v2.6.2
     hooks:
