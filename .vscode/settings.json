@@ -1,0 +1,14 @@
+{
+  "terminal.integrated.env.osx": {
+    "FLASK_APP": "trails_app",
+    "FLASK_ENV": "development"
+  },
+  "terminal.integrated.env.linux": {
+    "FLASK_APP": "trails_app",
+    "FLASK_ENV": "development"
+  },
+  "terminal.integrated.env.windows": {
+    "FLASK_APP": "trails_app",
+    "FLASK_ENV": "development"
+  }
+}
