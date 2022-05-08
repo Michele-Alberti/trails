@@ -89,7 +89,39 @@ cz commit
 
 `cz c` is a shorther alias for `cz commit`.
 
-### Merge strategy to main branch
+## Release strategy from `development` to `main` branch
 
 In order to take advantage of _Commitizen_ `bump` command follow this guideline.
-**TO DO**
+
+First check that you are on the correct branch.
+
+```
+git checkout main
+```
+
+Then start the merge process forcing it to stop before commit (`--no-commit`) and without using the _fast forward_ strategy (`--no-ff`).
+
+```
+git merge development --no-commit --no-ff
+```
+
+Check that the risults match your expectations then commit (you can leave the default message).
+
+```
+git commit
+```
+
+Now _Commitizen_ `bump` command will add an additional commit with updated versions to every file listed inside `pyproject.toml`.
+
+```
+cz bump --no-verify
+```
+
+You can now merge results of the release process back to the `development` branch.
+
+```
+git checkout development
+git merge main --no-ff
+```
+
+Use _update file from last release_ as commit message.
