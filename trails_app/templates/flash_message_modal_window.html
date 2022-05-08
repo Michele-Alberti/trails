@@ -1,0 +1,20 @@
+<!-- Modal Window -->
+<div id="modal-js-flash-window" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <article class="message {{ flash_type }}">
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <div class="message-header">
+        <p>{{ flash_type.replace("is-", "").upper() }}</p>
+        <button class="delete" aria-label="delete"></button>
+      </div>
+      <div class="message-body">
+        {% for message in messages %}
+        <div class="block">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %} {% endwith %}
+    </article>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>

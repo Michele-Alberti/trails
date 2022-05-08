@@ -11,9 +11,10 @@ auth = Blueprint("auth", __name__)
 # LOGIN -----------------------------------------------------------------------
 
 
-@auth.route("/login")
-def login():
-    return render_template("login.html")
+@auth.route("/login", defaults={"flash_type": "is-danger"})
+@auth.route("/login_flash_type_<flash_type>")
+def login(flash_type):
+    return render_template("login.html", flash_type=flash_type)
 
 
 @auth.route("/login", methods=["POST"])
@@ -30,7 +31,7 @@ def login_post():
     if not user or not user.check_password(password):
         flash("User not found. Please check password and email!")
         log.info(f"{email} not found")
-        return redirect(url_for("auth.login"))
+        return redirect(url_for("auth.login", flash_type="is-warning"))
     # If the password is correct log the user and show the profile page
     login_user(user, remember=remember)
     log.info(f"{user} log in")
@@ -40,9 +41,10 @@ def login_post():
 # SIGNUP ----------------------------------------------------------------------
 
 
-@auth.route("/signup")
-def signup():
-    return render_template("signup.html")
+@auth.route("/signup", defaults={"flash_type": "is-danger"})
+@auth.route("/signup_flash_type_<flash_type>")
+def signup(flash_type):
+    return render_template("signup.html", flash_type=flash_type)
 
 
 @auth.route("/signup", methods=["POST"])
@@ -59,7 +61,7 @@ def signup_post():
     if user:
         flash("Email address already exists!")
         log.info(f"{email} already exists")
-        return redirect(url_for("auth.signup"))
+        return redirect(url_for("auth.signup", flash_type="is-warning"))
 
     # Otherwise create a new user
     # Hash the password
@@ -70,9 +72,10 @@ def signup_post():
     db.session.add(new_user)
     db.session.commit()
 
+    flash("New account created!")
     log.info(f"{new_user} added to database")
 
-    return redirect(url_for("auth.login"))
+    return redirect(url_for("auth.login", flash_type="is-success"))
 
 
 # LOGOUT ----------------------------------------------------------------------

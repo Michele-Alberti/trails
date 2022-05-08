@@ -5,13 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Trails</title>
+    <!-- Style -->
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" />
     <link
       rel="stylesheet"
       href="{{url_for('static', filename='fontawesome/css/all.css')}}"
     />
-
+    <!-- Scripts -->
     <script src="{{url_for('static', filename='js/navbar.js')}}"></script>
+    <script src="{{url_for('static', filename='js/modal_windows.js')}}"></script>
   </head>
 
   <body class="has-navbar-fixed-top">
@@ -77,6 +79,10 @@
       </div>
     </nav>
 
+    <!-- Specific content -->
     {% block content %} {% endblock %}
+
+    <!-- Flash messages -->
+    {% include "flash_message_modal_window.html" %}
   </body>
 </html>

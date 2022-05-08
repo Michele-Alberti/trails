@@ -16,7 +16,7 @@
     <div class="column is-two-thirds">
       <form
         method="POST"
-        action="{{ url_for('main.item_post', trail_id=trail.id) }}"
+        action="{{ url_for('main.trail_post', trail_id=trail.id) }}"
       >
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
         <div class="box px-6">

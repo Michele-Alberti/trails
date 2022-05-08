@@ -21,14 +21,16 @@ main = Blueprint("main", __name__)
 # MAIN PROFILE ----------------------------------------------------------------
 
 
-@main.route("/")
-def index():
+@main.route("/", defaults={"flash_type": "is-danger"})
+@main.route("/?flash_type_<flash_type>")
+def index(flash_type):
     return render_template("index.html")
 
 
-@main.route("/profile")
+@main.route("/profile", defaults={"flash_type": "is-danger"})
+@main.route("/profile_flash_type_<flash_type>")
 @login_required
-def profile():
+def profile(flash_type):
     # Get icon names
     icon_names = glob.glob(
         os.path.join(current_app.static_folder, "images", "mountains", "*.png")
@@ -43,6 +45,7 @@ def profile():
         username=current_user.username,
         trails=trails,
         icons=icons,
+        flash_type=flash_type,
     )
 
 
@@ -70,9 +73,10 @@ def profile_post():
 # TRAIL -----------------------------------------------------------------------
 
 
-@main.route("/trail/<trail_id>")
+@main.route("/trail/<trail_id>", defaults={"flash_type": "is-danger"})
+@main.route("/trail/<trail_id>_flash_type_<flash_type>")
 @login_required
-def trail(trail_id):
+def trail(trail_id, flash_type):
 
     # Get icon names
     icon_names = glob.glob(
@@ -106,6 +110,7 @@ def trail(trail_id):
         trail=selected_trail,
         items=items,
         icons=icons,
+        flash_type=flash_type,
     )
 
 
@@ -135,9 +140,9 @@ def delete_trail(trail_id):
     return redirect(url_for("main.profile"))
 
 
-@main.route("/trail/<trail_id>/add_item", methods=["POST"])
+@main.route("/trail/<trail_id>", methods=["POST"])
 @login_required
-def item_post(trail_id):
+def trail_post(trail_id):
 
     # Query for selected trail
     selected_trail = Trail.query.get(trail_id)
