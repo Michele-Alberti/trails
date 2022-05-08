@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="trails_cli",
-    version="0.0.1",
+    version="0.1.0",
     py_modules=["trails_app"],
     install_requires=[
         "click",
