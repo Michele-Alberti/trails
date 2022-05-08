@@ -31,8 +31,11 @@
           <a
             class="button is-danger is-outlined"
             href="{{ url_for('main.delete_trail', trail_id=trail.id) }}"
-            ><strong>DELETE</strong></a
-          >
+            ><strong>DELETE</strong>
+            <span class="icon is-small">
+              <i class="fas fa-times"></i>
+            </span>
+          </a>
         </div>
       </div>
     </div>
