@@ -33,6 +33,7 @@ def login_post():
         return redirect(url_for("auth.login"))
     # If the password is correct log the user and show the profile page
     login_user(user, remember=remember)
+    log.info(f"{user} log in")
     return redirect(url_for("main.profile"))
 
 
