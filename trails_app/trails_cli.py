@@ -1,9 +1,7 @@
 import click
-import errno
 import pkg_resources
 from hydra import compose, initialize
 from omegaconf import OmegaConf
-import os
 from . import create_app
 
 # Import database object
@@ -52,20 +50,15 @@ def init_database():
 @click.confirmation_option()
 def delete_database():
     """Delete the database."""
-    db_path = os.path.join(
-        "trails_app",
-        config.flask.SQLALCHEMY_DATABASE_URI.replace("sqlite:///", ""),
-    )
-    print(db_path)
+
     try:
-        os.remove(db_path)
+        with app.app_context():
+            sql_alchemy_db.session.remove()
+            sql_alchemy_db.drop_all()
         click.secho("Database deleted", fg="green")
-    except OSError as e:
-        # errno.ENOENT means "no such file or directory"
-        # Re-raise if a different error is found
-        if e.errno != errno.ENOENT:
-            raise
-        click.secho("Database not found", fg="red")
+    except Exception:
+        # Generic error
+        click.secho("Cannot delete database for unknown reason", fg="red")
 
 
 def main():
