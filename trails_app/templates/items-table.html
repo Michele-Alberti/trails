@@ -1,0 +1,46 @@
+<!-- Print table if at least one item exist-->
+{% if items %}
+<table class="table is-hoverable mx-auto">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Icon</th>
+      <th>Name</th>
+      <th>Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+    <tr class="has-text-centered">
+      <th class="is-vcentered">{{ loop.index }}</th>
+      <td class="is-vcentered">
+        <figure class="image is-64x64">
+          <img
+            src="{{url_for('static', filename='images/items/' + item.icon)}}"
+          />
+        </figure>
+      </td>
+      <td class="is-vcentered">{{ item.name }}</td>
+      <td class="is-vcentered">
+        <a
+          class="delete is-large"
+          href="{{ url_for('main.delete_item', item_id=item.id) }}"
+        ></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<!-- Info message if the trail has no item -->
+{% else %}
+<div class="columns is-centered">
+  <div class="column is-half">
+    <article class="message is-info is-medium">
+      <div class="message-header">
+        <p>Info</p>
+      </div>
+      <div class="message-body">Add items to populate the list.</div>
+    </article>
+  </div>
+</div>
+{% endif %}

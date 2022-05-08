@@ -1,0 +1,73 @@
+{% extends "base.html" %} {% block content %}
+<div class="block my-6"></div>
+<section class="hero is-black">
+  <div class="hero-body">
+    <h2 class="title">{{ trail.name }}</h2>
+    <h4 class="subtitle">Details</h4>
+  </div>
+</section>
+
+<!-- Items Table -->
+<section class="section">{% include "items-table.html" %}</section>
+
+<!-- New Item Form -->
+<section class="section">
+  <div class="columns is-centered">
+    <div class="column is-two-thirds">
+      <form
+        method="POST"
+        action="{{ url_for('main.item_post', trail_id=trail.id) }}"
+      >
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <div class="box px-6">
+          <h3 class="title has-text-centered">New Item</h3>
+          <div class="level">
+            <div class="level-left">
+              <div class="level-item">
+                <div class="field">
+                  <label class="label">Item name: </label>
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="text"
+                      name="item_name"
+                      placeholder="My Item"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="level-item">
+                <div class="field">
+                  <label class="label">Icon: </label>
+                  <div class="control">
+                    <div class="select">
+                      <select name="icon_name" required>
+                        <option value="">None</option>
+                        {% for icon in icons %}
+                        <option>{{ icon }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="level-right">
+              <div class="level-item">
+                <div class="field">
+                  <div class="control">
+                    <button class="button is-link">
+                      <strong>ADD ITEM</strong>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}
