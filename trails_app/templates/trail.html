@@ -1,38 +1,37 @@
 {% extends "base.html" %} {% block content %}
-<section class="hero is-medium">
+<div class="block my-6"></div>
+<section class="hero is-black">
   <div class="hero-body">
-    <div class="container has-text-centered">
-      <h1 class="title">Welcome, {{ username }}!</h1>
-    </div>
+    <h2 class="title">{{ trail.name }}</h2>
+    <h4 class="subtitle">Details</h4>
   </div>
 </section>
 
-<!-- Trails List -->
-<section class="section">
-  <div class="columns is-centered">
-    <div class="column is-two-thirds">{% include "trails-list.html" %}</div>
-  </div>
-</section>
+<!-- Items Table -->
+<section class="section">{% include "items-table.html" %}</section>
 
-<!-- New Trail Form -->
+<!-- New Item Form -->
 <section class="section">
   <div class="columns is-centered">
     <div class="column is-two-thirds">
-      <form method="POST" action="{{ url_for('main.profile_post') }}">
+      <form
+        method="POST"
+        action="{{ url_for('main.trail_post', trail_id=trail.id) }}"
+      >
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
         <div class="box px-6">
-          <h3 class="title has-text-centered">New Trail</h3>
+          <h3 class="title has-text-centered">New Item</h3>
           <div class="level">
             <div class="level-left">
               <div class="level-item">
                 <div class="field">
-                  <label class="label">Trail name: </label>
+                  <label class="label">Item name: </label>
                   <div class="control">
                     <input
                       class="input"
                       type="text"
-                      name="trail_name"
-                      placeholder="My Trail"
+                      name="item_name"
+                      placeholder="My Item"
                       required
                     />
                   </div>
@@ -59,7 +58,7 @@
                 <div class="field">
                   <div class="control">
                     <button class="button is-link">
-                      <strong>CREATE TRAIL</strong>
+                      <strong>ADD ITEM</strong>
                     </button>
                   </div>
                 </div>

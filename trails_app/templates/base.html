@@ -4,50 +4,85 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Flask Auth Example</title>
+    <title>Trails</title>
+    <!-- Style -->
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"
+      href="{{url_for('static', filename='fontawesome/css/all.css')}}"
     />
+    <!-- Scripts -->
+    <script src="{{url_for('static', filename='js/navbar.js')}}"></script>
+    <script src="{{url_for('static', filename='js/modal_windows.js')}}"></script>
   </head>
 
-  <body>
-    <section class="hero is-primary is-fullheight">
-      <div class="hero-head">
-        <nav class="navbar">
-          <div class="container">
-            <div id="navbarMenuHeroA" class="navbar-menu">
-              <div class="navbar-end">
-                <a href="{{ url_for('main.index') }}" class="navbar-item">
-                  Home
-                </a>
-                {% if current_user.is_authenticated %}
-                <a href="{{ url_for('main.profile') }}" class="navbar-item">
-                  Profile
-                </a>
-                {% endif %} {% if not current_user.is_authenticated %}
-                <a href="{{ url_for('auth.login') }}" class="navbar-item">
-                  Login
-                </a>
-                <a href="{{ url_for('auth.signup') }}" class="navbar-item">
-                  Sign Up
-                </a>
-                {% endif %} {% if current_user.is_authenticated %}
-                <a href="{{ url_for('auth.logout') }}" class="navbar-item">
-                  Logout
-                </a>
-                {% endif %}
-              </div>
-            </div>
-          </div>
-        </nav>
+  <body class="has-navbar-fixed-top">
+    <nav
+      class="navbar is-primary is-fixed-top"
+      role="navigation"
+      aria-label="main navigation"
+    >
+      <div class="navbar-brand">
+        <img
+          src="{{ url_for('static', filename='images/mountains/gray_mountain.png') }}"
+          alt="Trails"
+          width="180"
+          height="28"
+        />
+        <div class="navbar-item">
+          <p class="title is-1 has-text-white">TRAILS</p>
+        </div>
+        <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbar-content"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
       </div>
-
-      <div class="hero-body">
-        <div class="container has-text-centered">
-          {% block content %} {% endblock %}
+      <div id="navbar-content" class="navbar-menu">
+        <div class="navbar-start"></div>
+        <div class="navbar-end">
+          <a href="{{ url_for('main.index') }}" class="navbar-item">
+            <span class="icon">
+              <i class="fas fa-home"></i>
+            </span>
+            <span>Home</span>
+          </a>
+          {% if current_user.is_authenticated %}
+          <a href="{{ url_for('main.profile') }}" class="navbar-item">
+            <span class="icon">
+              <i class="fa-solid fa-user"></i>
+            </span>
+            <span>Profile</span>
+          </a>
+          {% endif %} {% if not current_user.is_authenticated %}
+          <a href="{{ url_for('auth.login') }}" class="navbar-item">
+            <span class="icon">
+              <i class="fa-solid fa-right-to-bracket"></i>
+            </span>
+            <span>Login</span>
+          </a>
+          <a href="{{ url_for('auth.signup') }}" class="navbar-item">
+            <button class="button is-black is-rounded">Sign Up</button>
+          </a>
+          {% endif %} {% if current_user.is_authenticated %}
+          <a href="{{ url_for('auth.logout') }}" class="navbar-item">
+            <button class="button is-black is-rounded">Logout</button>
+          </a>
+          {% endif %}
         </div>
       </div>
-    </section>
+    </nav>
+
+    <!-- Specific content -->
+    {% block content %} {% endblock %}
+
+    <!-- Flash messages -->
+    {% include "flash_message_modal_window.html" %}
   </body>
 </html>

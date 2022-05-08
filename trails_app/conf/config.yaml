@@ -1,0 +1,12 @@
+defaults:
+  - _self_ #configs from the Defaults List are overriding config.yaml
+  - flask: development
+  - server: development
+#  - _self_ #config.yaml is overriding configs from the Defaults List
+
+hydra:
+  # disable changing of cwd as it interferes with flask auto-restart
+  run:
+    dir: .
+  # output files creation
+  output_subdir: null

@@ -1,0 +1,6 @@
+name: nodejs
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - nodejs=16.13.1

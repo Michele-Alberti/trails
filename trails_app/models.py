@@ -23,8 +23,10 @@ def init_db_command():
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), index=True, unique=True)
-    email = db.Column(db.String(64), index=True, unique=True)
+    username = db.Column(
+        db.String(64), index=True, unique=True, nullable=False
+    )
+    email = db.Column(db.String(64), index=True, unique=True, nullable=False)
     password_hash = db.Column(db.String(64))
     trails = db.relationship("Trail", backref="author", lazy="dynamic")
 
@@ -40,8 +42,8 @@ class User(UserMixin, db.Model):
 
 class Trail(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), index=True)
-    icon = db.Column(db.String(64))
+    name = db.Column(db.String(64), index=True, nullable=False)
+    icon = db.Column(db.String(64), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     items = db.relationship("Item", backref="trail", lazy="dynamic")
 
@@ -51,8 +53,8 @@ class Trail(db.Model):
 
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), index=True)
-    icon = db.Column(db.String(64))
+    name = db.Column(db.String(64), index=True, nullable=False)
+    icon = db.Column(db.String(64), nullable=False)
     trail_id = db.Column(db.Integer, db.ForeignKey("trail.id"))
 
     def __repr__(self):
