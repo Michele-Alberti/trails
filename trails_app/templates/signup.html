@@ -11,7 +11,7 @@
             <a href="{{ url_for('auth.login') }}">login page</a>.
           </div>
           {% endif %} {% endwith %}
-          <form method="POST" action="/signup">
+          <form method="POST" action="{{ url_for('auth.signup_post') }}">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
             <div class="field">
               <div class="control">
