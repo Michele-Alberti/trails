@@ -83,14 +83,21 @@ def trail(trail_id):
     # Get trail
     selected_trail = Trail.query.get(trail_id)
 
-    # Check if selected track belongs to the current user
-    if current_user.id == selected_trail.author.id:
-        # Find existing items
-        items = selected_trail.items.all()
+    # Check if the query gave results
+    if selected_trail:
+        # Check if selected track belongs to the current user
+        if current_user.id == selected_trail.author.id:
+            # Find existing items
+            items = selected_trail.items.all()
+        else:
+            # Selected trail does not belong to current user
+            flash("You cannot see this trail!")
+            log.info(f"{selected_trail} cannot be accessed by {current_user}")
+            return redirect(url_for("main.profile"))
     else:
         # Selected trail does not belong to current user
-        flash("You cannot see this trail!")
-        log.info(f"{selected_trail} cannot be accessed by {current_user}")
+        flash("Trail not found!")
+        log.info(f"Trail with ID #{trail_id} does not exist")
         return redirect(url_for("main.profile"))
 
     return render_template(
