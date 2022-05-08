@@ -12,7 +12,9 @@
   <tbody>
     {% for item in items %}
     <tr class="has-text-centered">
+      <!-- Item number -->
       <th class="is-vcentered">{{ loop.index }}</th>
+      <!-- Item icon -->
       <td class="is-vcentered">
         <figure class="image is-64x64">
           <img
@@ -20,14 +22,48 @@
           />
         </figure>
       </td>
+      <!-- Item name-->
       <td class="is-vcentered">{{ item.name }}</td>
+      <!-- Delete buttom-->
       <td class="is-vcentered">
-        <a
-          class="delete is-large"
-          href="{{ url_for('main.delete_item', item_id=item.id) }}"
-        ></a>
+        <button
+          class="js-modal-trigger delete is-large"
+          data-target="{{ 'item-delete-js-modal-' ~ item.id }}"
+        ></button>
       </td>
     </tr>
+
+    <!-- Delete window-->
+    <div id="{{ 'item-delete-js-modal-' ~ item.id }}" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title is-danger">Delete {{ item.name }}</p>
+          <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <div class="block">
+            Selected resource will be deleted.<br />Are you sure?
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <form
+            method="POST"
+            action="{{ url_for('main.delete_item', item_id=item.id) }}"
+          >
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+            <div class="field has-addons">
+              <div class="control">
+                <button class="button is-danger">Delete</button>
+              </div>
+              <div class="control">
+                <div class="button">Cancel</div>
+              </div>
+            </div>
+          </form>
+        </footer>
+      </div>
+    </div>
     {% endfor %}
   </tbody>
 </table>

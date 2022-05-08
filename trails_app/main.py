@@ -114,7 +114,7 @@ def trail(trail_id, flash_type):
     )
 
 
-@main.route("/trail/<trail_id>/delete")
+@main.route("/trail/<trail_id>/delete", methods=["POST"])
 @login_required
 def delete_trail(trail_id):
 
@@ -169,7 +169,7 @@ def trail_post(trail_id):
     return redirect(url_for("main.trail", trail_id=trail_id))
 
 
-@main.route("/item/<item_id>/delete")
+@main.route("/item/<item_id>/delete", methods=["POST"])
 @login_required
 def delete_item(item_id):
 
