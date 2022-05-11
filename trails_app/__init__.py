@@ -25,16 +25,13 @@ def create_app(config: DictConfig):
 
     # Create and configure the app
     app = Flask(__name__, instance_relative_config=True)
-    app.config.from_object(config.flask)
+    app.config.from_object(config)
 
     # Ensure the instance folder exists
     Path(app.instance_path).mkdir(parents=True, exist_ok=True)
 
     # Initialize database
     db.init_app(app)
-
-    # Register cli commands
-    app.cli.add_command(models.init_db_command)
 
     # Set up the login manager
     login_manager = LoginManager()
