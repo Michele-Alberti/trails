@@ -1,6 +1,6 @@
 # Trails
 
-A simple app for designing mountain trails!
+A simple app for planning your journeys on hiking trails.
 
 ## Development environment setup
 
