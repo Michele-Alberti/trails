@@ -5,14 +5,14 @@ name: docker-heroku CD
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Set environment variables 
+# Set environment variables
 env:
   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
   APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
@@ -29,11 +29,11 @@ jobs:
       - uses: actions/checkout@v3
 
       # Build Docker image
-      - name: Docker build
+      - name: Docker login
         run: docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
 
       # Push the Docker image to Heroku Container Registry
-      - name: Publish
+      - name: Heroku Push and Release
         run: |
           heroku container:push web -a $APP_NAME --context-path . --recursive
           heroku container:release web -a $APP_NAME
