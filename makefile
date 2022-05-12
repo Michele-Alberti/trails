@@ -24,7 +24,7 @@ build:
 	docker build -t ${IMAGEFULLNAME} -f docker/web/Dockerfile .
 
 push:
-	heroku container:push -a ${APP} --context-path . --recursive
+	heroku container:push web -a ${APP} --context-path . --recursive
 
 run: 
 	docker run -d --name ${CONTAINERNAME} -p 127.0.0.1:${PORT}:${PORT} -e FLASK_ENV=production -e PORT=${PORT} ${IMAGEFULLNAME}
