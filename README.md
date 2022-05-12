@@ -25,8 +25,12 @@ conda activate trails-app
 
 ### Install trails CLI
 
-The CLI distributed with setuptools instead of using Unix shebangs.  
-It is a very simple utility to initialize and delete an _sqlite_ debug database: use it local tests.
+The CLI is distributed with setuptools instead of using Unix shebangs.  
+It is a very simple utility to initialize and delete the app database. There are different use cases:
+
+- Create/delete an _sqlite_ database for local debug
+- Initialize/drop tables inside a contanerized _Postgresql_ database
+- Initialize/drop tables Heroku's _Postgresql_ add-on
 
 Use the following command for generating the CLI executable from the `setup.py` file, it will install your package locally.
 
@@ -44,12 +48,34 @@ It will just link the package to the original location, basically meaning any ch
 
 Now you can activate the _Conda_ environment and access the _CLI_ commands directly from the terminal (without using annoying _shebangs_ or prepending `python` to run your _CLI_ calls).
 
-Test that everything is working fine with the following commands.
+Test that everything is working correctly with the following commands.
 
 ```
 trails --version
 trails --help
 ```
+
+> **Note:**  
+> To create the _sqlite_ database and run the app locally, use the flag `--sqlite-test-db` when calling db commands.  
+> In addition an environment variable named `FLASK_TEST_DB`shall exist for _Flask_ to work correctly with _sqlite_.
+>
+> Create the local _sqlite_ database with:
+>
+> ```
+> export FLASK_TEST_DB=true && trails --sqlite-test-db db init && python -m trails_app flask=sqlite server=sqlite
+> ```
+>
+> And then launch the app:
+>
+> ```
+> python -m trails_app
+> ```
+>
+> Delete the local _sqlite_ database with:
+>
+> ```
+> export FLASK_TEST_DB=true && trails --sqlite-test-db db delete && unset FLASK_TEST_DB
+> ```
 
 ## Additional installations before contributing
 
@@ -71,7 +97,7 @@ pre-commit install
 pre-commit autoupdate
 ```
 
-Optionally run hooks an all files.
+Optionally run hooks on all files.
 
 ```
 pre-commit run --all-files
@@ -105,7 +131,7 @@ Then start the merge process forcing it to stop before commit (`--no-commit`) an
 git merge development --no-commit --no-ff
 ```
 
-Check that the risults match your expectations then commit (you can leave the default message).
+Check that the rsults matches your expectations then commit (you can leave the default message).
 
 ```
 git commit
@@ -124,4 +150,4 @@ git checkout development
 git merge main --no-ff
 ```
 
-Use _update file from last release_ as commit message.
+Use _"pdate file from last release"_ as commit message.
