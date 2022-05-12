@@ -1,3 +1,9 @@
+## v0.2.1 (2022-05-12)
+
+### Fix
+
+- **__init__.py**: fix an error caused by old postgres uri
+
 ## v0.2.0 (2022-05-12)
 
 ### Feat
