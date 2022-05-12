@@ -1,7 +1,7 @@
 defaults:
   - _self_ #configs from the Defaults List are overriding config.yaml
-  - flask: development
-  - server: development
+  - flask@_global_: ${oc.env:FLASK_ENV}
+  - server: ${oc.env:FLASK_ENV}
 #  - _self_ #config.yaml is overriding configs from the Defaults List
 
 hydra:

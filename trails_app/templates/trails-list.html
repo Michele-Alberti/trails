@@ -27,18 +27,51 @@
             ><strong>OPEN</strong></a
           >
         </div>
+        <!-- Delete Button (to modal window with javascript) -->
         <div class="level-item">
-          <a
-            class="button is-danger is-outlined"
-            href="{{ url_for('main.delete_trail', trail_id=trail.id) }}"
-            ><strong>DELETE</strong>
+          <button
+            class="js-modal-trigger button is-danger is-outlined"
+            data-target="{{ 'trail-delete-js-modal-' ~ trail.id }}"
+          >
+            <strong>DELETE</strong>
             <span class="icon is-small">
               <i class="fas fa-times"></i>
             </span>
-          </a>
+          </button>
         </div>
       </div>
     </div>
+  </div>
+</div>
+<!-- Delete window-->
+<div id="{{ 'trail-delete-js-modal-' ~ trail.id }}" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title is-danger">Delete {{ trail.name }}</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="block">
+        Selected resource will be deleted.<br />Are you sure?
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <form
+        method="POST"
+        action="{{ url_for('main.delete_trail', trail_id=trail.id) }}"
+      >
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <div class="field has-addons">
+          <div class="control">
+            <button class="button is-danger">Delete</button>
+          </div>
+          <div class="control">
+            <div class="button">Cancel</div>
+          </div>
+        </div>
+      </form>
+    </footer>
   </div>
 </div>
 {% endfor %}

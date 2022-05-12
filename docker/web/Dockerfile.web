@@ -1,0 +1,77 @@
+# Conda with custom entrypoint from base ubuntu image (or continuumio)
+# Automatically activate a conda environment on entrypoint
+#
+# Build with:
+# docker build -t trails-app .
+# Run with:
+# docker run -dp 3000:3000 trails-app
+
+## UNCOMMENT HERE FOR UBUNTU
+##FROM ubuntu:18.04
+##
+### Install things we need to install more things
+##RUN apt update && apt-get install -y \
+##    package-bar \
+##    package-baz \
+##    package-foo  \
+##    && rm -rf /var/lib/apt/lists/*
+##
+### Install miniconda
+##RUN wget -nv https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
+##    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
+##    rm ~/miniconda.sh && \
+##    /opt/conda/bin/conda clean -ay && \
+##    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
+##
+#### add conda to the path so we can execute it by name
+##ENV PATH=/opt/conda/bin:$PATH
+
+# If using miniconda official image all steps before this one are not required
+# COMMENT HERE FOR UBUNTU
+FROM continuumio/miniconda3:4.11.0
+
+# Create /entry.sh to be used as shell entry point
+# Set a new shell which activate the environment
+RUN (echo '#!/bin/bash' && \
+    echo '__conda_setup="$(/opt/conda/bin/conda shell.bash hook 2> /dev/null)"' && \
+    echo 'eval "$__conda_setup"' && \
+    echo 'conda activate "${CONDA_TARGET_ENV:-base}"' && \
+    echo '>&2 echo "ENTRYPOINT: CONDA_DEFAULT_ENV=${CONDA_DEFAULT_ENV}"' && \
+    echo 'exec "$@"') >> /entry.sh && chmod +x /entry.sh
+
+# Tell the docker build process to use the new script for RUN
+SHELL ["/entry.sh", "/bin/bash", "-c"]
+
+# Every invocation of RUN will start with the entry script
+RUN conda update conda -y &&\
+    conda clean -ay
+
+# Copy requirements
+COPY requirements/environment.yml /requirements/environment.yml
+
+# Create env
+RUN conda env create -f /requirements/environment.yml &&\
+    conda clean -ay
+
+# Add the CONDA_TARGET_ENV to activate a specific environment
+ENV CONDA_TARGET_ENV=trails-app
+
+## Configure .bashrc to drop into a conda env and immediately activate our TARGET env
+RUN conda init && echo 'conda activate "${CONDA_TARGET_ENV:-base}"' >>  ~/.bashrc
+ENTRYPOINT ["/entry.sh"]
+
+# Copy data
+WORKDIR /app
+COPY . .
+
+#Init database
+RUN pip install -e .
+
+# Add Flask specific environment variables
+ENV FLASK_APP=trails_app
+
+# Expose port 5000
+EXPOSE 5000
+
+# Set command
+CMD python -m trails_app

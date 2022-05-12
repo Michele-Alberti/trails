@@ -6,7 +6,7 @@ from . import create_app
 @hydra.main(config_path="conf", config_name="config")
 def run_app(config: DictConfig):
     app = create_app(config)
-    app.run()
+    app.run(host=config.server.host, port=config.server.port)
 
 
 # Call for hydra

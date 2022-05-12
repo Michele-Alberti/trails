@@ -5,10 +5,11 @@ setup(
     version="0.1.0",
     py_modules=["trails_app"],
     install_requires=[
-        "click",
-        "flask",
-        "flask-sqlalchemy",
-        "hydra",
+        "flask==2.0.3",
+        "flask-wtf==0.15.1",
+        "flask-login==0.5.0",
+        "flask-sqlalchemy==2.5.1",
+        "hydra-core==1.1.1",
         "omegaconf",
     ],
     entry_points={
