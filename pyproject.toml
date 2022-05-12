@@ -17,7 +17,7 @@ exclude = '''
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "0.2.0"
+version = "0.2.1"
 version_files = [
     "trails_app/__init__.py",
     "setup.py:version",
