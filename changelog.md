@@ -1,3 +1,22 @@
+## v0.2.0 (2022-05-12)
+
+### Feat
+
+- update flask configurations for supporting both sqlite and postgresql
+- **trails_cli.py**: add support for postgres
+- add support for postgresql and improve configuration handling
+
+### Fix
+
+- **__main__.py**: fix error on server configuration
+- change method of delete actions from GET to POST
+
+### Refactor
+
+- **import-click**: change 'db init' and 'db delete' to be database agnostic
+- **flash_message_modal_window.html**: renamed to flash-message-modal-window.html
+- **flash_message_modal_window.html**: renamed to flash-message-modal-window.html
+
 ## v0.1.0 (2022-05-08)
 
 ### Feat
