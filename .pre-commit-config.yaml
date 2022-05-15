@@ -9,13 +9,13 @@ repos:
     hooks:
       - id: flake8
   - repo: https://github.com/thibaudcolas/pre-commit-stylelint
-    rev: v14.8.0
+    rev: v14.8.2
     hooks:
       - id: stylelint
         args: [--allow-empty-input]
         additional_dependencies:
           # stylelint itself needs to be here when using additional_dependencies
-          - stylelint@14.7.1
+          - stylelint@14.8.2
           - stylelint-config-standard@25.0.0
           - stylelint-config-recommended-scss@6.0.0
   - repo: https://github.com/pre-commit/mirrors-prettier
@@ -23,7 +23,7 @@ repos:
     hooks:
       - id: prettier
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.24.0
+    rev: v2.26.0
     hooks:
       - id: commitizen
         stages: [commit-msg]

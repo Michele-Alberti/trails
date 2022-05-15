@@ -1,17 +1,19 @@
-{% for trail in trails %}
+{% if trails %} {% for trail in trails %}
 <div class="block">
   <div class="box px-6">
     <div class="level">
       <div class="level-right">
         <!-- Icon -->
         <div class="level-item">
-          <div class="container" style="width: 150px">
-            <figure class="image is-5by3">
-              <img
-                src="{{url_for('static', filename='images/mountains/' + trail.icon)}}"
-              />
-            </figure>
-          </div>
+          <figure
+            class="content is-flex is-align-items-center"
+            style="width: 12rem; height: 5rem"
+          >
+            <img
+              src="{{url_for('static', filename='images/mountains/' + trail.icon)}}"
+              alt="trail.icon"
+            />
+          </figure>
         </div>
         <!-- Name -->
         <div class="level-item">
@@ -75,3 +77,16 @@
   </div>
 </div>
 {% endfor %}
+<!-- Info message if the trail has no item -->
+{% else %}
+<div class="columns is-centered">
+  <div class="column is-half">
+    <article class="message is-info is-medium">
+      <div class="message-header">
+        <p>Info</p>
+      </div>
+      <div class="message-body">Add trails to populate the list.</div>
+    </article>
+  </div>
+</div>
+{% endif %}
