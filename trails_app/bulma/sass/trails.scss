@@ -3,21 +3,66 @@
 // Import a Google Font
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
 
-// Set your brand colors
-$black: #31382f;
-$dark-green: #6b8f71;
-$mid-green: #aad2ba;
-$light-green: #d7e6d3;
+// Import bulma functions
+@import "../node_modules/bulma/sass/utilities/functions";
+
+// Palette colors
+$gunmetal: #1b2736;
+$prussian-blue-dark: #223144;
+$prussian-blue: #293b51;
+$indigo-dye: #0d4275;
+$yale-blue: #0e4981;
+$lapis-lazuli: #125ea5; // Not used
+$blue-yonder: #496ea4;
+$glacous: #567bb3; // not used
+$blue-grey: #7291c0;
+$cadet-grey: #8ea0b8;
+$shadow-blue: #8296b0;
+$cadet-blue-crayola: #a0afc3;
+$alice-blue: #eff4fb;
 
 // Update Bulma's global variables
 $family-sans-serif: "Nunito", sans-serif;
-$primary: $dark-green;
-$link: $black;
+$primary: $indigo-dye;
+$link: $blue-grey;
+
+// Update shades
+$black: $gunmetal;
+$black-bis: $prussian-blue-dark;
+$black-ter: $prussian-blue;
+$grey-darker: $indigo-dye;
+$grey-dark: $yale-blue;
+$grey: $blue-yonder;
+$grey-light: $cadet-grey;
+$grey-lighter: $shadow-blue;
+$grey-lightest: $cadet-blue-crayola;
+$white-ter: $alice-blue;
+$white-bis: $alice-blue;
 
 // Update some of Bulma's component variables
-$body-background-color: $light-green;
-$control-border-width: 2px;
-$input-border-color: transparent;
-$input-shadow: none;
+$background: $white-bis;
+//$body-background-color: $white-bis;
+//$control-border-width: 2px;
+//$input-border-color: transparent;
+//$input-shadow: none;
+
+// Add backround images
+$backgrounds-images: (
+  snow-peak: "../../static/images/banners/landing_banner.png",
+);
 
 @import "../node_modules/bulma/bulma";
+
+// Extend hero for background
+@each $key, $image in $backgrounds-images {
+  .#{$key} {
+    background-image: url(#{$image});
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+// Extend footer with top border
+.footer {
+  border-top: 0.2rem solid $black-ter;
+}
