@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="trails_cli",
-    version="0.2.1",
+    version="0.3.0",
     py_modules=["trails_app"],
     install_requires=[
         "flask==2.0.3",

@@ -1,3 +1,13 @@
+## v0.3.0 (2022-05-15)
+
+### Feat
+
+- change the existing web app theme
+
+### Refactor
+
+- update web app style
+
 ## v0.2.1 (2022-05-12)
 
 ### Fix
