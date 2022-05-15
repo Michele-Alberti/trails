@@ -1,14 +1,17 @@
 {
   "terminal.integrated.env.osx": {
     "FLASK_APP": "trails_app",
-    "FLASK_ENV": "development"
+    "FLASK_ENV": "development",
+    "DATABASE_URL": "sqlite:///trails.db"
   },
   "terminal.integrated.env.linux": {
     "FLASK_APP": "trails_app",
-    "FLASK_ENV": "development"
+    "FLASK_ENV": "development",
+    "DATABASE_URL": "sqlite:///trails.db"
   },
   "terminal.integrated.env.windows": {
     "FLASK_APP": "trails_app",
-    "FLASK_ENV": "development"
+    "FLASK_ENV": "development",
+    "DATABASE_URL": "sqlite:///trails.db"
   }
 }
