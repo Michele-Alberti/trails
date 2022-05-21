@@ -30,8 +30,14 @@ class User(UserMixin, db.Model):
         db.String(64), index=True, unique=False, nullable=False
     )
     email = db.Column(db.String(64), index=True, unique=True, nullable=False)
-    password_hash = db.Column(db.String(128))
-    trails = db.relationship("Trail", backref="author", lazy="dynamic")
+    password_hash = db.Column(db.String(128), nullable=False)
+    trails = db.relationship(
+        "Trail",
+        backref="author",
+        lazy="dynamic",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
+    )
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -50,11 +56,23 @@ class Trail(db.Model):
     icon = db.Column(db.String(64), nullable=False)
     if schema:
         user_id = db.Column(
-            db.Integer, db.ForeignKey(f"{schema['schema']}.user.id")
+            db.Integer,
+            db.ForeignKey(f"{schema['schema']}.user.id", ondelete="CASCADE"),
+            nullable=False,
         )
     else:
-        user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    items = db.relationship("Item", backref="trail", lazy="dynamic")
+        user_id = db.Column(
+            db.Integer,
+            db.ForeignKey("user.id", ondelete="CASCADE"),
+            nullable=False,
+        )
+    items = db.relationship(
+        "Item",
+        backref="trail",
+        lazy="dynamic",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
+    )
 
     def __repr__(self):
         return f"<TID:{self.id}, UID:{self.user_id}>"
@@ -67,10 +85,16 @@ class Item(db.Model):
     icon = db.Column(db.String(64), nullable=False)
     if schema:
         trail_id = db.Column(
-            db.Integer, db.ForeignKey(f"{schema['schema']}.trail.id")
+            db.Integer,
+            db.ForeignKey(f"{schema['schema']}.trail.id", ondelete="CASCADE"),
+            nullable=False,
         )
     else:
-        trail_id = db.Column(db.Integer, db.ForeignKey("trail.id"))
+        trail_id = db.Column(
+            db.Integer,
+            db.ForeignKey("trail.id", ondelete="CASCADE"),
+            nullable=False,
+        )
 
     def __repr__(self):
         return (
