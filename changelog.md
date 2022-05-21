@@ -1,3 +1,20 @@
+## v0.4.0 (2022-05-21)
+
+### Fix
+
+- **models.py**: change username uniqueness to false
+
+### Feat
+
+- add favicon
+- add credits modal window
+- **trails_cli.py**: add example user during database initialization
+- improve graphics and responsive design
+
+### Refactor
+
+- **main.py**: improve how icons names are displayed
+
 ## v0.3.0 (2022-05-15)
 
 ### Feat
