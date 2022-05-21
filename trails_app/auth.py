@@ -1,6 +1,6 @@
 import logging
 from flask import Blueprint, render_template, redirect, url_for, request, flash
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user, current_user
 from .models import User
 from . import db
 
@@ -84,5 +84,6 @@ def signup_post():
 @auth.route("/logout")
 @login_required
 def logout():
+    log.info(f"{current_user} log out")
     logout_user()
     return redirect(url_for("main.index"))

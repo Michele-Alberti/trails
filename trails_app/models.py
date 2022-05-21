@@ -27,7 +27,7 @@ class User(UserMixin, db.Model):
     __table_args__ = schema
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(
-        db.String(64), index=True, unique=True, nullable=False
+        db.String(64), index=True, unique=False, nullable=False
     )
     email = db.Column(db.String(64), index=True, unique=True, nullable=False)
     password_hash = db.Column(db.String(128))
@@ -40,7 +40,7 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
-        return f"<User {self.username}>"
+        return f"<UID:{self.id}>"
 
 
 class Trail(db.Model):
@@ -57,7 +57,7 @@ class Trail(db.Model):
     items = db.relationship("Item", backref="trail", lazy="dynamic")
 
     def __repr__(self):
-        return f"<Trail: {self.name}, U_ID: {self.user_id}>"
+        return f"<TID:{self.id}, UID:{self.user_id}>"
 
 
 class Item(db.Model):
@@ -73,4 +73,6 @@ class Item(db.Model):
         trail_id = db.Column(db.Integer, db.ForeignKey("trail.id"))
 
     def __repr__(self):
-        return f"<Item: {self.name}, T_ID: {self.trail_id}>"
+        return (
+            f"<IID:{self.id}, TID:{self.trail_id}, UID:{self.trail.user_id}>"
+        )
