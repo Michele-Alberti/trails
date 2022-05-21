@@ -65,7 +65,7 @@ def profile_post():
         name=trail_name, icon=icon_name, user_id=current_user.id, items=[]
     )
 
-    # Add the new user
+    # Add the new trail
     db.session.add(new_trail)
     db.session.commit()
 
@@ -159,10 +159,10 @@ def trail_post(trail_id):
     icon_name = request.form.get("icon_name").replace(" ", "_") + ".png"
 
     if current_user.id == selected_trail.author.id:
-        # Add trail to database
+        # Add item to database
         new_item = Item(name=item_name, icon=icon_name, trail_id=trail_id)
 
-        # Add the new user
+        # Add the new item
         db.session.add(new_item)
         db.session.commit()
 
