@@ -1,3 +1,13 @@
+## v0.5.0 (2022-05-22)
+
+### Feat
+
+- **models.py**: add cascade deletion on database
+
+### Fix
+
+- **server/development.yaml**: fix error on host address
+
 ## v0.4.1 (2022-05-21)
 
 ### Fix
