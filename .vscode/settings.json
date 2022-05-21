@@ -2,16 +2,16 @@
   "terminal.integrated.env.osx": {
     "FLASK_APP": "trails_app",
     "FLASK_ENV": "development",
-    "DATABASE_URL": "sqlite:///trails.db"
+    "DATABASE_URL": "postgresql://postgres:postgres@localhost:5432/trails_app"
   },
   "terminal.integrated.env.linux": {
     "FLASK_APP": "trails_app",
     "FLASK_ENV": "development",
-    "DATABASE_URL": "sqlite:///trails.db"
+    "DATABASE_URL": "postgresql://postgres:postgres@localhost:5432/trails_app"
   },
   "terminal.integrated.env.windows": {
     "FLASK_APP": "trails_app",
     "FLASK_ENV": "development",
-    "DATABASE_URL": "sqlite:///trails.db"
+    "DATABASE_URL": "postgresql://postgres:postgres@localhost:5432/trails_app"
   }
 }
