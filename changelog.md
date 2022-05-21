@@ -1,3 +1,9 @@
+## v0.4.1 (2022-05-21)
+
+### Fix
+
+- **server/production.yaml**: fix error on host address
+
 ## v0.4.0 (2022-05-21)
 
 ### Fix
