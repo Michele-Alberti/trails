@@ -1,19 +1,21 @@
 {% extends "base.html" %} {% block content %}
-<section class="container mt-5 has-text-centered">
-  <h1 class="title">Welcome, {{ username }}!</h1>
+<section class="hero is-small has-text-centered mt-6">
+  <div class="hero-body">
+    <h1 class="title">Welcome, {{ username }}!</h1>
+  </div>
 </section>
 
 <!-- Trails List -->
 <section class="section">
   <div class="columns is-centered">
-    <div class="column is-two-thirds">{% include "trails-list.html" %}</div>
+    <div class="column is-three-quarters">{% include "trails-list.html" %}</div>
   </div>
 </section>
 
 <!-- New Trail Form -->
 <section class="section">
   <div class="columns is-centered">
-    <div class="column is-two-thirds">
+    <div class="column is-three-quarters">
       <form method="POST" action="{{ url_for('main.profile_post') }}">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
         <div class="box px-6">
@@ -55,7 +57,7 @@
                 <div class="field">
                   <div class="control">
                     <button class="button is-link">
-                      <strong>CREATE TRAIL</strong>
+                      <strong>CREATE</strong>
                     </button>
                   </div>
                 </div>
