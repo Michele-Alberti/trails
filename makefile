@@ -25,7 +25,7 @@ help:
 .DEFAULT_GOAL := all
 
 build:
-	docker build -t ${IMAGEFULLNAME} -f docker/web/Dockerfile .
+	docker build -t ${IMAGEFULLNAME} -f docker/web/Dockerfile.web .
 
 push:
 	heroku container:push web -a ${APP} --context-path . --recursive
