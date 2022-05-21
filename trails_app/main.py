@@ -35,7 +35,11 @@ def profile(flash_type):
     icon_names = glob.glob(
         os.path.join(current_app.static_folder, "images", "mountains", "*.png")
     )
-    icons = [os.path.basename(icon) for icon in icon_names]
+    icons = [
+        os.path.basename(icon).replace("_", " ").replace(".png", "")
+        for icon in icon_names
+    ]
+    icons.sort()
 
     # Find existing trails
     trails = Trail.query.filter(Trail.user_id == current_user.id)
@@ -54,7 +58,7 @@ def profile(flash_type):
 def profile_post():
     # Get data from form
     trail_name = request.form.get("trail_name")
-    icon_name = request.form.get("icon_name")
+    icon_name = request.form.get("icon_name").replace(" ", "_") + ".png"
 
     # Add trail to database
     new_trail = Trail(
@@ -82,7 +86,11 @@ def trail(trail_id, flash_type):
     icon_names = glob.glob(
         os.path.join(current_app.static_folder, "images", "items", "*.png")
     )
-    icons = [os.path.basename(icon) for icon in icon_names]
+    icons = [
+        os.path.basename(icon).replace("_", " ").replace(".png", "")
+        for icon in icon_names
+    ]
+    icons.sort()
 
     # Get trail
     selected_trail = Trail.query.get(trail_id)
@@ -146,10 +154,9 @@ def trail_post(trail_id):
 
     # Query for selected trail
     selected_trail = Trail.query.get(trail_id)
-
     # Get data from form
     item_name = request.form.get("item_name")
-    icon_name = request.form.get("icon_name")
+    icon_name = request.form.get("icon_name").replace(" ", "_") + ".png"
 
     if current_user.id == selected_trail.author.id:
         # Add trail to database
