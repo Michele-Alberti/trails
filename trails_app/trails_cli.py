@@ -7,7 +7,7 @@ from . import create_app
 
 # Import database object
 from . import db as sql_alchemy_db
-from .models import schema
+from .models import User, Trail, Item, schema
 
 # Version
 __version__ = pkg_resources.require("trails_cli")[0].version
@@ -63,6 +63,50 @@ def init_database(obj):
                 f"CREATE SCHEMA IF NOT EXISTS {schema['schema']};"
             )
         sql_alchemy_db.create_all()
+
+        # Create the example user
+        new_user = User(username="Example User", email="example@email.com")
+        new_user.set_password("example_user")
+        sql_alchemy_db.session.add(new_user)
+        sql_alchemy_db.session.commit()
+
+        # Create example trail
+        new_trail = Trail(
+            name="Civetta", icon="grey_mountains.png", user_id=1, items=[]
+        )
+        sql_alchemy_db.session.add(new_trail)
+        sql_alchemy_db.session.commit()
+
+        # Create example items
+        new_item = Item(name="Travel to Civetta", icon="car.png", trail_id=1)
+        sql_alchemy_db.session.add(new_item)
+        new_item = Item(name="Trail #15", icon="boot.png", trail_id=1)
+        sql_alchemy_db.session.add(new_item)
+        new_item = Item(
+            name="Ferrata Nomale to Torrani", icon="rope.png", trail_id=1
+        )
+        sql_alchemy_db.session.add(new_item)
+        new_item = Item(name="Stay at Torrani", icon="shelter.png", trail_id=1)
+        sql_alchemy_db.session.add(new_item)
+        new_item = Item(
+            name="Path to Civetta's peak", icon="peak.png", trail_id=1
+        )
+        sql_alchemy_db.session.add(new_item)
+        new_item = Item(
+            name="Ferrata degli Alleghesi to Coldai",
+            icon="boot_pickaxe.png",
+            trail_id=1,
+        )
+        sql_alchemy_db.session.add(new_item)
+        new_item = Item(name="Stay at Coldai", icon="shelter.png", trail_id=1)
+        sql_alchemy_db.session.add(new_item)
+        new_item = Item(name="Trail #25", icon="map.png", trail_id=1)
+        sql_alchemy_db.session.add(new_item)
+        new_item = Item(name="Relax", icon="canteen.png", trail_id=1)
+        sql_alchemy_db.session.add(new_item)
+        new_item = Item(name="Travel back home", icon="car.png", trail_id=1)
+        sql_alchemy_db.session.add(new_item)
+        sql_alchemy_db.session.commit()
 
     click.secho("Database initialized", fg="green")
 
