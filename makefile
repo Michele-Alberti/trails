@@ -8,7 +8,11 @@ CONTAINERNAME=${IMAGENAME}_${SERVICE}
 IMAGEFULLNAME=${CONTAINERNAME}:${VERSION}
 PROJECTNAME=${USERNAME}_${APP}
 PORT=5000
-
+DBNAME=postgres
+DBSERVICE=db
+DBCONTAINERNAME=${DBNAME}_${DBSERVICE}
+DBIMAGEFULLNAME=${DBNAME}:${VERSION}
+DBPORT=5432
 
 .PHONY: help build push all clean
 
@@ -38,8 +42,14 @@ run-development:
 run-development-sqlite:
 	docker run -rm -d --name ${CONTAINERNAME} -p 127.0.0.1:${PORT}:${PORT} -e FLASK_TEST_DB=true -e FLASK_ENV=development -e PORT=${PORT} ${IMAGEFULLNAME} /bin/sh -c "trails --sqlite-test-db db init && python -m trails_app flask=sqlite"
 
+run-db: 
+	docker run -d --name ${DBCONTAINERNAME} -v ${PWD}/postgres-data:/var/lib/postgresql/data -p 127.0.0.1:${DBPORT}:${DBPORT} -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=trails_app ${DBIMAGEFULLNAME}
+
 stop: 
 	docker stop ${CONTAINERNAME}
+
+stop-db: 
+	docker stop ${DBCONTAINERNAME}
 
 up:
 	docker-compose -p ${PROJECTNAME} -f docker/docker-compose.yaml --project-directory . up -d

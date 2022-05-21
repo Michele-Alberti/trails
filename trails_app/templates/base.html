@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html class="has-background-light">
+<html class="has-background-white-bis">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Trails</title>
+    <!-- Favicon -->
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+      type="image/x-icon"
+    />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+      type="image/x-icon"
+    />
     <!-- Style -->
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" />
     <link
@@ -16,7 +27,7 @@
     <script src="{{url_for('static', filename='js/modal_windows.js')}}"></script>
   </head>
 
-  <body class="has-navbar-fixed-top has-background-light">
+  <body class="has-navbar-fixed-top has-background-white-bis">
     <nav
       class="navbar has-shadow is-primary is-fixed-top"
       role="navigation"
@@ -66,7 +77,12 @@
             </span>
             <span>Profile</span>
           </a>
-          {% endif %} {% if not current_user.is_authenticated %}
+          <a href="{{ url_for('auth.logout') }}" class="navbar-item py-0">
+            <button class="button is-primary-invert is-rounded is-small">
+              Logout
+            </button>
+          </a>
+          {% else %}
           <a href="{{ url_for('auth.login') }}" class="navbar-item py-0">
             <span class="icon">
               <i class="fa-solid fa-right-to-bracket"></i>
@@ -76,12 +92,6 @@
           <a href="{{ url_for('auth.signup') }}" class="navbar-item py-0">
             <button class="button is-primary-invert is-rounded is-small">
               Sign Up
-            </button>
-          </a>
-          {% endif %} {% if current_user.is_authenticated %}
-          <a href="{{ url_for('auth.logout') }}" class="navbar-item py-0">
-            <button class="button is-primary-invert is-rounded is-small">
-              Logout
             </button>
           </a>
           {% endif %}
@@ -95,20 +105,35 @@
     <!-- Footer-->
     <footer class="footer">
       <div class="content">
-        <p>
-          <strong>Trails</strong> by
-          <a href="https://www.linkedin.com/in/albertimichele"
-            >Michele Alberti</a
-          ><br />
-          The source code and the website content is licensed
-          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
-            >CC BY NC SA 4.0</a
-          >.
-        </p>
+        <div class="block">
+          <p>
+            <strong>Trails</strong> by
+            <a href="https://www.linkedin.com/in/albertimichele"
+              >Michele Alberti</a
+            >
+          </p>
+        </div>
+        <div class="block">
+          <p>
+            The source code and the website content is licensed
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+              >CC BY NC SA 4.0</a
+            >.
+          </p>
+        </div>
       </div>
+      <button
+        class="js-modal-trigger button is-primary is-outlined"
+        data-target="modal-js-credits-window"
+      >
+        Credits
+      </button>
     </footer>
 
     <!-- Flash messages -->
     {% include "flash-message-modal-window.html" %}
+
+    <!-- Credits -->
+    {% include "credits-modal-window.html" %}
   </body>
 </html>

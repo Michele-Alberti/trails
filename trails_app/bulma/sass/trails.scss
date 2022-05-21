@@ -20,6 +20,7 @@ $cadet-grey: #8ea0b8;
 $shadow-blue: #8296b0;
 $cadet-blue-crayola: #a0afc3;
 $alice-blue: #eff4fb;
+$alice-blue-dark: #dee9f7;
 
 // Update Bulma's global variables
 $family-sans-serif: "Nunito", sans-serif;
@@ -36,15 +37,19 @@ $grey: $blue-yonder;
 $grey-light: $cadet-grey;
 $grey-lighter: $shadow-blue;
 $grey-lightest: $cadet-blue-crayola;
-$white-ter: $alice-blue;
+$white-ter: $alice-blue-dark;
 $white-bis: $alice-blue;
 
 // Update some of Bulma's component variables
 $background: $white-bis;
+$table-row-hover-background-color: $white-ter;
 //$body-background-color: $white-bis;
 //$control-border-width: 2px;
 //$input-border-color: transparent;
 //$input-shadow: none;
+
+// Chanage breakpoints
+$tablet: 950px;
 
 // Add backround images
 $backgrounds-images: (
