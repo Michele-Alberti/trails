@@ -150,4 +150,4 @@ git checkout development
 git merge main --no-ff
 ```
 
-Use _"update file from last release"_ as commit message.
+Use _"update files from last release"_ as commit message.
