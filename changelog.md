@@ -1,3 +1,9 @@
+## v1.0.0 (2022-05-22)
+
+### Feat
+
+- **README.md**: force major version change
+
 ## v0.5.0 (2022-05-22)
 
 ### Feat
